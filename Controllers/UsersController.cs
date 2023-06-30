@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecruitApi.Models;
@@ -9,10 +10,12 @@ namespace RecruitApi.Controllers
   public class UsersController : ControllerBase
   {
     private readonly AppDbContext _context;
+    private readonly IMediator _mediator;
 
-    public UsersController(AppDbContext context)
+    public UsersController(AppDbContext context, IMediator mediator)
     {
       _context = context;
+      _mediator = mediator;
     }
 
     [HttpGet("users")]
@@ -28,20 +31,17 @@ namespace RecruitApi.Controllers
     }
 
     [HttpGet("user/{id}")]
-    public async Task<ActionResult<UserDTO>> GetUserById([FromRoute] long id)
+    public async Task<ActionResult<GetUserResponse>> GetUserById([FromRoute] long id)
     {
-      if (_context.Users == null)
+      try
       {
-        return NotFound();
+        var result = await _mediator.Send(new GetUserRequest { IdUser = id });
+        return result;
       }
-      var user = await _context.Users.FindAsync(id);
-
-      if (user == null)
+      catch (NotFoundException ex)
       {
-        return NotFound();
+        return NotFound(ex.Message);
       }
-
-      return Extensions.ItemToDTO(user);
     }
 
     [HttpPut("{id}/update")]

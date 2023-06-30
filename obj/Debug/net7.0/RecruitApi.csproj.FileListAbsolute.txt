@@ -276,3 +276,7 @@ D:\Study\Self Education\Git Projects\docker\RecruitApi\obj\Debug\net7.0\refint\R
 D:\Study\Self Education\Git Projects\docker\RecruitApi\obj\Debug\net7.0\RecruitApi.pdb
 D:\Study\Self Education\Git Projects\docker\RecruitApi\obj\Debug\net7.0\RecruitApi.genruntimeconfig.cache
 D:\Study\Self Education\Git Projects\docker\RecruitApi\obj\Debug\net7.0\ref\RecruitApi.dll
+D:\Study\Self Education\Git Projects\docker\RecruitApi\bin\Debug\net7.0\AutoMapper.dll
+D:\Study\Self Education\Git Projects\docker\RecruitApi\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Study\Self Education\Git Projects\docker\RecruitApi\bin\Debug\net7.0\MediatR.dll
+D:\Study\Self Education\Git Projects\docker\RecruitApi\bin\Debug\net7.0\MediatR.Contracts.dll

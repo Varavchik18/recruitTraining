@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using RecruitApi.Models;
 
@@ -10,25 +11,30 @@ builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddScoped<IAppDbContext>(option =>
+{
+  return option.GetService<AppDbContext>();
+});
 
 builder.Services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
-
+builder.Services.AddMediatR(_ => _.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
 
 using (var scope = app.Services.CreateScope())
 {
-    var serviceProvider = scope.ServiceProvider;
-    var databaseInitializer = serviceProvider.GetRequiredService<IDatabaseInitializer>();
+  var serviceProvider = scope.ServiceProvider;
+  var databaseInitializer = serviceProvider.GetRequiredService<IDatabaseInitializer>();
 
-    databaseInitializer.Initialize();
+  databaseInitializer.Initialize();
 }
 
 app.UseHttpsRedirection();

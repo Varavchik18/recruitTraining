@@ -24,6 +24,7 @@ public class TrainingProgram
   public int Difficulty { get; set; }
   public List<Exercise> Exercises { get; set; }
   public MuscleGroupEnum MuscleGroup { get; set; }
+  public TrainingTypeEnum TrainingType { get; set; }
   public string ImageUrl { get; set; }
   public string VideoUrl { get; set; }
   public string Notes { get; set; }
