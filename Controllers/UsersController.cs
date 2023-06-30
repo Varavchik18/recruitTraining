@@ -19,15 +19,10 @@ namespace RecruitApi.Controllers
     }
 
     [HttpGet("users")]
-    public async Task<ActionResult<IEnumerable<UserDTO>>> GetUserList()
+    public async Task<ActionResult<GetUserListResponse>> GetUserList()
     {
-      if (_context.Users == null)
-      {
-        return NotFound();
-      }
-      return await _context.Users
-          .Select(x => Extensions.ItemToDTO(x))
-          .ToListAsync();
+      var result = await _mediator.Send(new GetUserListRequest());
+      return result;
     }
 
     [HttpGet("user/{id}")]
@@ -45,71 +40,60 @@ namespace RecruitApi.Controllers
     }
 
     [HttpPut("{id}/update")]
-    public async Task<IActionResult> UpdateUser([FromRoute] long id, [FromBody] UserDTO user)
+    public async Task<IActionResult> UpdateUser([FromRoute] long id, [FromBody] UpdateUserCommand command)
     {
-      if (id != user.IdUser)
-      {
-        return BadRequest();
-      }
-
-      _context.Entry(user).State = EntityState.Modified;
-
+      command.IdUser = id;
       try
       {
-        await _context.SaveChangesAsync();
+        await _mediator.Send(command);
       }
-      catch (DbUpdateConcurrencyException)
+      catch (NotFoundException ex)
       {
-        if (!userExists(id))
-        {
-          return NotFound();
-        }
-        else
-        {
-          throw;
-        }
+        return NotFound(ex.Message);
+      }
+      catch (BadRequestException ex)
+      {
+        return BadRequest(ex.Message);
       }
 
       return NoContent();
     }
 
     [HttpPost("create")]
-    public async Task<ActionResult<User>> CreateUser([FromBody] UserDTO user)
+    public async Task<ActionResult<User>> CreateUser([FromBody] CreateUserCommand command)
     {
-      _context.Users.Add(new User(user.Name, user.IsActive));
-      await _context.SaveChangesAsync();
-
-      return CreatedAtAction(nameof(GetUserById), new { id = user.IdUser }, user);
+      try
+      {
+        var result = await _mediator.Send(new CreateUserCommand { Name = command.Name, IsActive = command.IsActive });
+        return CreatedAtAction(nameof(GetUserById), new { id = result }, result);
+      }
+      catch (BadRequestException ex)
+      {
+        return BadRequest(ex.Message);
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.Message);
+      }
     }
 
     [HttpDelete("{id}/delete")]
     public async Task<IActionResult> DeleteUser([FromRoute] long id)
     {
-      if (_context.Users == null)
+      try
       {
-        return NotFound();
+        await _mediator.Send(new DeleteUserCommand { IdUser = id });
       }
-      var user = await _context.Users.FindAsync(id);
-      if (user == null)
+      catch (NotFoundException ex)
       {
-        return NotFound();
+        return NotFound(ex.Message);
       }
-      else if (user.IsActive)
+      catch (BadRequestException ex)
       {
-        return UnprocessableEntity($"Unable to delete active user. {nameof(User)} is active: {user.IsActive}");
-      }
-      else
-      {
-        _context.Users.Remove(user);
-        await _context.SaveChangesAsync();
+        return BadRequest(ex.Message);
       }
 
       return NoContent();
-    }
-
-    private bool userExists(long id)
-    {
-      return (_context.Users?.Any(e => e.IdUser == id)).GetValueOrDefault();
     }
   }
 }
