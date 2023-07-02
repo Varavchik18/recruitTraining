@@ -1,6 +1,3 @@
-//generate a class Equipment what contains info about equipment needed for training: Name, Weight, Type, Description, ImageUrl, VideoUrl, Count, isForHomeWorkout, isForOutdoorWorkout
-
-
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,21 +5,6 @@ namespace RecruitApi.Models.Training
 {
   public class Equipment
   {
-    public Equipment(string name, int weight, string description, string imageUrl, string videoUrl, int count,
-    bool isForHomeWorkout, bool isForOutdoorWorkout, string notes)
-    {
-      Name = name;
-      Weight = weight;
-      EquipmentType = EquipmentTypeEnum.None;
-      Description = description;
-      ImageUrl = imageUrl;
-      VideoUrl = videoUrl;
-      Count = count;
-      this.isForHomeWorkout = isForHomeWorkout;
-      this.isForOutdoorWorkout = isForOutdoorWorkout;
-      Notes = notes;
-    }
-
     [Key]
     public int IdEquipment { get; set; }
 
@@ -48,6 +30,35 @@ namespace RecruitApi.Models.Training
 
     [StringLength(100)]
     public string? Notes { get; set; }
+
+    public Equipment(string name, int weight, string description, string imageUrl, string videoUrl, int count,
+    bool isForHomeWorkout, bool isForOutdoorWorkout, string notes, EquipmentTypeEnum equipmentType)
+    {
+      Name = name;
+      Weight = weight;
+      EquipmentType = EquipmentTypeEnum.None;
+      Description = description;
+      ImageUrl = imageUrl;
+      VideoUrl = videoUrl;
+      Count = count;
+      this.isForHomeWorkout = isForHomeWorkout;
+      this.isForOutdoorWorkout = isForOutdoorWorkout;
+      Notes = notes;
+      EquipmentType = equipmentType;
+    }
+
+    //update method
+    public void Update(string name, int weight, string description, string imageUrl, string videoUrl, int count, string notes, EquipmentTypeEnum equipmentType)
+    {
+      Name = name;
+      EquipmentType = equipmentType;
+      Weight = weight;
+      Description = description;
+      ImageUrl = imageUrl;
+      VideoUrl = videoUrl;
+      Count = count;
+      Notes = notes;
+    }
 
     public void UpdateNameAndDescription(string name, string description)
     {
