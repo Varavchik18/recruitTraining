@@ -1,6 +1,5 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RecruitApi.Models;
 
 namespace RecruitApi.Controllers
@@ -9,10 +8,10 @@ namespace RecruitApi.Controllers
   [ApiController]
   public class EquipmentController : ControllerBase
   {
-    private readonly AppDbContext _context;
+    private readonly SystemDbContext _context;
     private readonly IMediator _mediator;
 
-    public EquipmentController(AppDbContext context, IMediator mediator)
+    public EquipmentController(SystemDbContext context, IMediator mediator)
     {
       _context = context;
       _mediator = mediator;

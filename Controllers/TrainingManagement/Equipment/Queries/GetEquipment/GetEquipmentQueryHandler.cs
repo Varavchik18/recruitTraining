@@ -6,10 +6,10 @@ using RecruitApi.Models.Training;
 
 public class GetEquipmentQueryHandler : IRequestHandler<GetEquipmentRequest, GetEquipmentResponse>
 {
-  private readonly AppDbContext _context;
+  private readonly SystemDbContext _context;
   private readonly IMapper _mapper;
 
-  public GetEquipmentQueryHandler(AppDbContext context, IMapper mapper)
+  public GetEquipmentQueryHandler(SystemDbContext context, IMapper mapper)
   {
     _context = context;
     _mapper = mapper;

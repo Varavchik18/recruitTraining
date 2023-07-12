@@ -7,9 +7,9 @@ public class DeleteEquipmentCommand : IRequest<Unit>
 
 public class DeleteEquipmentCommandHandler : IRequestHandler<DeleteEquipmentCommand, Unit>
 {
-  private readonly IAppDbContext _context;
+  private readonly ISystemDbContext _context;
 
-  public DeleteEquipmentCommandHandler(IAppDbContext context)
+  public DeleteEquipmentCommandHandler(ISystemDbContext context)
   {
     _context = context;
   }

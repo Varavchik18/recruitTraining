@@ -17,19 +17,16 @@ public class UpdateEquipmentCommand : IRequest<int>
 
 public class UpdateEquipmentCommandHandler : IRequestHandler<UpdateEquipmentCommand, int>
 {
-  private readonly IAppDbContext _context;
+  private readonly ISystemDbContext _context;
 
-  public UpdateEquipmentCommandHandler(IAppDbContext context)
+  public UpdateEquipmentCommandHandler(ISystemDbContext context)
   {
     _context = context;
   }
 
   public async Task<int> Handle(UpdateEquipmentCommand request, CancellationToken cancellationToken)
   {
-    if (request.Name == null || String.IsNullOrWhiteSpace(request.Name))
-    {
-      throw new ArgumentNullException(nameof(request.Name), "Equipment name cannot be null or empty");
-    }
+    ArgumentNullException.ThrowIfNullOrEmpty(request.Name, "Equipment name cannot be null or empty");
 
     var equipment = await _context.Equipments.FindAsync(request.IdEquipment);
 

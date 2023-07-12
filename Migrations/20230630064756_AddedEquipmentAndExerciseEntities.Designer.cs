@@ -10,176 +10,176 @@ using RecruitApi.Models;
 
 namespace RecruitApi.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
-    [Migration("20230630064756_AddedEquipmentAndExerciseEntities")]
-    partial class AddedEquipmentAndExerciseEntities
+  [DbContext(typeof(SystemDbContext))]
+  [Migration("20230630064756_AddedEquipmentAndExerciseEntities")]
+  partial class AddedEquipmentAndExerciseEntities
+  {
+    /// <inheritdoc />
+    protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+      modelBuilder
+          .HasAnnotation("ProductVersion", "7.0.0")
+          .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+      SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EquipmentExercise", b =>
-                {
-                    b.Property<int>("EquipmentIdEquipment")
-                        .HasColumnType("int");
+      modelBuilder.Entity("EquipmentExercise", b =>
+          {
+            b.Property<int>("EquipmentIdEquipment")
+                      .HasColumnType("int");
 
-                    b.Property<int>("ExerciseIdExercise")
-                        .HasColumnType("int");
+            b.Property<int>("ExerciseIdExercise")
+                      .HasColumnType("int");
 
-                    b.HasKey("EquipmentIdEquipment", "ExerciseIdExercise");
+            b.HasKey("EquipmentIdEquipment", "ExerciseIdExercise");
 
-                    b.HasIndex("ExerciseIdExercise");
+            b.HasIndex("ExerciseIdExercise");
 
-                    b.ToTable("ExerciseEquipment", (string)null);
-                });
+            b.ToTable("ExerciseEquipment", (string)null);
+          });
 
-            modelBuilder.Entity("RecruitApi.Models.Training.Equipment", b =>
-                {
-                    b.Property<int>("IdEquipment")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+      modelBuilder.Entity("RecruitApi.Models.Training.Equipment", b =>
+          {
+            b.Property<int>("IdEquipment")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEquipment"));
+            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdEquipment"));
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
+            b.Property<int>("Count")
+                      .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("Description")
+                      .IsRequired()
+                      .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("ImageUrl")
+                      .IsRequired()
+                      .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("Name")
+                      .IsRequired()
+                      .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("Notes")
+                      .IsRequired()
+                      .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("Type")
+                      .IsRequired()
+                      .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VideoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("VideoUrl")
+                      .IsRequired()
+                      .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Weight")
-                        .HasColumnType("int");
+            b.Property<int>("Weight")
+                      .HasColumnType("int");
 
-                    b.Property<bool>("isForHomeWorkout")
-                        .HasColumnType("bit");
+            b.Property<bool>("isForHomeWorkout")
+                      .HasColumnType("bit");
 
-                    b.Property<bool>("isForOutdoorWorkout")
-                        .HasColumnType("bit");
+            b.Property<bool>("isForOutdoorWorkout")
+                      .HasColumnType("bit");
 
-                    b.HasKey("IdEquipment");
+            b.HasKey("IdEquipment");
 
-                    b.ToTable("equipments_tb", (string)null);
-                });
+            b.ToTable("equipments_tb", (string)null);
+          });
 
-            modelBuilder.Entity("RecruitApi.Models.Training.Exercise", b =>
-                {
-                    b.Property<int>("IdExercise")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+      modelBuilder.Entity("RecruitApi.Models.Training.Exercise", b =>
+          {
+            b.Property<int>("IdExercise")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdExercise"));
+            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdExercise"));
 
-                    b.Property<long>("AuthorId")
-                        .HasColumnType("bigint");
+            b.Property<long>("AuthorId")
+                      .HasColumnType("bigint");
 
-                    b.Property<int>("CountOfExercisesToRepeat")
-                        .HasColumnType("int");
+            b.Property<int>("CountOfExercisesToRepeat")
+                      .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("Description")
+                      .IsRequired()
+                      .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Difficulty")
-                        .HasColumnType("int");
+            b.Property<int>("Difficulty")
+                      .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("ImageUrl")
+                      .IsRequired()
+                      .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("Name")
+                      .IsRequired()
+                      .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumberOfSets")
-                        .HasColumnType("int");
+            b.Property<int>("NumberOfSets")
+                      .HasColumnType("int");
 
-                    b.Property<string>("TargetMuscleGroup")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("TargetMuscleGroup")
+                      .IsRequired()
+                      .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VideoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("VideoUrl")
+                      .IsRequired()
+                      .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdExercise");
+            b.HasKey("IdExercise");
 
-                    b.HasIndex("AuthorId");
+            b.HasIndex("AuthorId");
 
-                    b.ToTable("exercises_tb", (string)null);
-                });
+            b.ToTable("exercises_tb", (string)null);
+          });
 
-            modelBuilder.Entity("RecruitApi.Models.User", b =>
-                {
-                    b.Property<long>("IdUser")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+      modelBuilder.Entity("RecruitApi.Models.User", b =>
+          {
+            b.Property<long>("IdUser")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdUser"));
+            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdUser"));
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+            b.Property<bool>("IsActive")
+                      .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("Name")
+                      .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdUser");
+            b.HasKey("IdUser");
 
-                    b.ToTable("users_tb", (string)null);
-                });
+            b.ToTable("users_tb", (string)null);
+          });
 
-            modelBuilder.Entity("EquipmentExercise", b =>
-                {
-                    b.HasOne("RecruitApi.Models.Training.Equipment", null)
-                        .WithMany()
-                        .HasForeignKey("EquipmentIdEquipment")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+      modelBuilder.Entity("EquipmentExercise", b =>
+          {
+            b.HasOne("RecruitApi.Models.Training.Equipment", null)
+                      .WithMany()
+                      .HasForeignKey("EquipmentIdEquipment")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
 
-                    b.HasOne("RecruitApi.Models.Training.Exercise", null)
-                        .WithMany()
-                        .HasForeignKey("ExerciseIdExercise")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            b.HasOne("RecruitApi.Models.Training.Exercise", null)
+                      .WithMany()
+                      .HasForeignKey("ExerciseIdExercise")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
+          });
 
-            modelBuilder.Entity("RecruitApi.Models.Training.Exercise", b =>
-                {
-                    b.HasOne("RecruitApi.Models.User", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+      modelBuilder.Entity("RecruitApi.Models.Training.Exercise", b =>
+          {
+            b.HasOne("RecruitApi.Models.User", "Author")
+                      .WithMany()
+                      .HasForeignKey("AuthorId")
+                      .OnDelete(DeleteBehavior.Cascade)
+                      .IsRequired();
 
-                    b.Navigation("Author");
-                });
+            b.Navigation("Author");
+          });
 #pragma warning restore 612, 618
-        }
     }
+  }
 }

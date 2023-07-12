@@ -4,9 +4,9 @@ using RecruitApi.Models;
 
 public class GetUserQueryHandler : IRequestHandler<GetUserRequest, GetUserResponse>
 {
-  private readonly IAppDbContext _appDbContext;
+  private readonly ISystemDbContext _appDbContext;
   private readonly IMapper _mapper;
-  public GetUserQueryHandler(IAppDbContext appDbContext,
+  public GetUserQueryHandler(ISystemDbContext appDbContext,
   IMapper mapper)
   {
     _appDbContext = appDbContext;

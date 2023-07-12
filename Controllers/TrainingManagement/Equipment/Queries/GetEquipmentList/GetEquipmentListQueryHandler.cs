@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 public class GetEquipmentListQueryHandler : IRequestHandler<GetEquipmentListRequest, GetEquipmentListResponse>
 {
-  private readonly IAppDbContext _context;
+  private readonly ISystemDbContext _context;
   private readonly IMapper _mapper;
 
-  public GetEquipmentListQueryHandler(IAppDbContext context, IMapper mapper)
+  public GetEquipmentListQueryHandler(ISystemDbContext context, IMapper mapper)
   {
     _context = context;
     _mapper = mapper;

@@ -9,9 +9,9 @@ public class DeleteUserCommand : IRequest<Unit>
 
 public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Unit>
 {
-  private readonly IAppDbContext _context;
+  private readonly ISystemDbContext _context;
 
-  public DeleteUserCommandHandler(IAppDbContext context)
+  public DeleteUserCommandHandler(ISystemDbContext context)
   {
     _context = context;
   }

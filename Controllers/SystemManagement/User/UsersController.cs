@@ -9,10 +9,10 @@ namespace RecruitApi.Controllers
   [ApiController]
   public class UsersController : ControllerBase
   {
-    private readonly AppDbContext _context;
+    private readonly SystemDbContext _context;
     private readonly IMediator _mediator;
 
-    public UsersController(AppDbContext context, IMediator mediator)
+    public UsersController(SystemDbContext context, IMediator mediator)
     {
       _context = context;
       _mediator = mediator;

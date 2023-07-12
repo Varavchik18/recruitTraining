@@ -8,9 +8,9 @@ public class UpdateUserCommand : IRequest<Unit>
 
 public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
 {
-  private readonly IAppDbContext _context;
+  private readonly ISystemDbContext _context;
 
-  public UpdateUserCommandHandler(IAppDbContext context)
+  public UpdateUserCommandHandler(ISystemDbContext context)
   {
     _context = context;
   }

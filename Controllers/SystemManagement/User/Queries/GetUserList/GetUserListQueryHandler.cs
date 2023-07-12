@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 public class GetUserListQueryHandler : IRequestHandler<GetUserListRequest, GetUserListResponse>
 {
-  private readonly IAppDbContext _appDbContext;
+  private readonly ISystemDbContext _appDbContext;
   private readonly IMapper _mapper;
-  public GetUserListQueryHandler(IAppDbContext appDbContext,
+  public GetUserListQueryHandler(ISystemDbContext appDbContext,
   IMapper mapper)
   {
     _appDbContext = appDbContext;

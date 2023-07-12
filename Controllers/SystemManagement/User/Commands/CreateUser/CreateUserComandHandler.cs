@@ -9,9 +9,9 @@ public class CreateUserCommand : IRequest<long>
 
 public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, long>
 {
-  private readonly IAppDbContext _context;
+  private readonly ISystemDbContext _context;
 
-  public CreateUserCommandHandler(IAppDbContext context)
+  public CreateUserCommandHandler(ISystemDbContext context)
   {
     _context = context;
   }

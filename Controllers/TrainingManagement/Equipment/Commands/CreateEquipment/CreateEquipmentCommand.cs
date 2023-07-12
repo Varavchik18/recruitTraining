@@ -21,10 +21,10 @@ public class CreateEquipmentCommand : IRequest<int>
 
 public class CreateEquipmentCommandHandler : IRequestHandler<CreateEquipmentCommand, int>
 {
-  private readonly IAppDbContext _context;
+  private readonly ISystemDbContext _context;
   private readonly IMapper _mapper;
 
-  public CreateEquipmentCommandHandler(IAppDbContext context, IMapper mapper)
+  public CreateEquipmentCommandHandler(ISystemDbContext context, IMapper mapper)
   {
     _context = context;
     _mapper = mapper;
@@ -32,10 +32,7 @@ public class CreateEquipmentCommandHandler : IRequestHandler<CreateEquipmentComm
 
   public async Task<int> Handle(CreateEquipmentCommand request, CancellationToken cancellationToken)
   {
-    if (request.Name == null || String.IsNullOrWhiteSpace(request.Name))
-    {
-      throw new ArgumentNullException(nameof(request.Name), "Equipment name cannot be null or empty");
-    }
+    ArgumentNullException.ThrowIfNullOrEmpty(request.Name, "Equipment name cannot be null or empty");
 
     var equipmentType = EquipmentTypeEnum.None;
     if (request.EquipmentTypeId != null && Enum.IsDefined(typeof(EquipmentTypeEnum), request.EquipmentTypeId))

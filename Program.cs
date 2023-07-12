@@ -10,10 +10,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddScoped<IAppDbContext>(option =>
+builder.Services.AddDbContext<SystemDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddScoped<ISystemDbContext>(option =>
 {
-  return option.GetService<AppDbContext>();
+  return option.GetService<SystemDbContext>();
 });
 
 builder.Services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
